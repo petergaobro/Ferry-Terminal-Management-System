@@ -1,11 +1,3 @@
-Task is designed to take a **small amount of time**, and requires minimal knowledge of React. There are no hidden tricks or gotchas, any elegant submission which meets the requirements **will result in an interview**.
-
-You are welcome to exceed the requirements of the test, and re-write or remove any existing code if you believe it is the right thing to do.
-
-Be sure to read and follow the instructions for submitting your completed test.
-
----
-
 # Ferry Terminal!
 
 Peter has bought a small ferry terminal and two ferries are available at any one time.
