@@ -1,9 +1,12 @@
 import React, { useMemo, useState } from "react";
 import { Vehicle, VehicleType, VehicleSize } from "../types/Vehicle";
+import { State, Action } from "../hooks/useFerryTerminal";
 
 interface Props {
-  state: any;
-  dispatch: Function;
+  // Application state containing ferry data
+  state: State;
+  // Dispatch function for managing ferry actions
+  dispatch: React.Dispatch<Action>;
   queue: Vehicle[];
   setQueue: React.Dispatch<React.SetStateAction<Vehicle[]>>;
 }
@@ -12,7 +15,7 @@ const vehicleTypes: VehicleType[] = ["car", "van", "truck", "bus"];
 const MAX_SMALL = 8;
 const MAX_LARGE = 6;
 
-const ManualAssign: React.FC<Props> = ({ state, dispatch, queue, setQueue }) => {
+const ManualAssign: React.FC<Props> = ({ state, dispatch, setQueue }) => {
   const [vehicleType, setVehicleType] = useState<VehicleType>("car");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

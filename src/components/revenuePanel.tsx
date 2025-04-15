@@ -1,7 +1,9 @@
 import React from "react";
+import { State } from "../hooks/useFerryTerminal";
 
 interface Props {
-  state: any; // Contains terminalRevenue and workerRevenue
+  // Application state containing ferry data
+  state: State;
 }
 
 /**

@@ -1,12 +1,14 @@
 import React from "react";
 import { Vehicle } from "../types/Vehicle";
 import { vehicleImages } from "../constants/vehicleMap";
+import { Action } from "../hooks/useFerryTerminal";
 
 interface Props {
   vehicle: Vehicle;
   ferryType: "small" | "large";
   index: number;
-  dispatch: Function;
+  // Dispatch function for managing ferry actions
+  dispatch: React.Dispatch<Action>;
 }
 
 const VehicleCard: React.FC<Props> = ({ vehicle, ferryType, index, dispatch }) => (
@@ -18,7 +20,7 @@ const VehicleCard: React.FC<Props> = ({ vehicle, ferryType, index, dispatch }) =
     />
     <button
       onClick={() => dispatch({ type: "REMOVE_VEHICLE", payload: { ferryType, index, carType: vehicle.type } })}
-      className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 text-xs hidden group-hover:block"
+      className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 text-xs hidden group-hover:block cursor-pointer"
     >
       X
     </button>

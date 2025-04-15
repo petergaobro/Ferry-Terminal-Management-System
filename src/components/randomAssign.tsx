@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Vehicle } from "../types/Vehicle";
 import { generateRandomVehicle } from "../utils/vehicle";
+import { State, Action } from "../hooks/useFerryTerminal";
 // import { getRandomVehicle } from "../types/Vehicle";
 
 interface Props {
-  state: any;
-  dispatch: Function;
+  // Application state containing ferry data
+  state: State;
+  // Dispatch function for managing ferry actions
+  dispatch: React.Dispatch<Action>;
   queue: Vehicle[];
   setQueue: React.Dispatch<React.SetStateAction<Vehicle[]>>;
 }
@@ -13,7 +16,7 @@ interface Props {
 const MAX_SMALL = 8;
 const MAX_LARGE = 6;
 
-const RandomAssign: React.FC<Props> = ({ state, dispatch, queue, setQueue }) => {
+const RandomAssign: React.FC<Props> = ({ state, dispatch, setQueue }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const isFerryFull = (size: "small" | "large") => {

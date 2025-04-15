@@ -1,10 +1,13 @@
 import React from "react";
 import VehicleCard from "./vehicleCard";
 import { Vehicle } from "../types/Vehicle";
+import { State, Action } from "../hooks/useFerryTerminal";
 
 interface Props {
-  state: any; // Application state containing ferry data
-  dispatch: Function; // Dispatch function for managing ferry actions
+  // Application state containing ferry data
+  state: State;
+  // Dispatch function for managing ferry actions
+  dispatch: React.Dispatch<Action>;
 }
 
 /**
