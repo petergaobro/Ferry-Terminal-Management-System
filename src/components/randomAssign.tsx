@@ -1,48 +1,19 @@
-import React, { useState } from "react";
-import { Vehicle } from "../types/Vehicle";
-import { generateRandomVehicle } from "../utils/vehicle";
-import { State, Action } from "../hooks/useFerryTerminal";
-// import { getRandomVehicle } from "../types/Vehicle";
+import React from "react";
+import { AssignProps } from "../types/Assign";
+import { useVehicleAssign } from "../hooks/useVehicleAssign";
+// import { generateRandomVehicle } from "../utils/vehicle";
+import { getRandomVehicle } from "../utils/vehicle";
 
-interface Props {
-  // Application state containing ferry data
-  state: State;
-  // Dispatch function for managing ferry actions
-  dispatch: React.Dispatch<Action>;
-  queue: Vehicle[];
-  setQueue: React.Dispatch<React.SetStateAction<Vehicle[]>>;
-}
-
-const MAX_SMALL = 8;
-const MAX_LARGE = 6;
-
-const RandomAssign: React.FC<Props> = ({ state, dispatch, setQueue }) => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const isFerryFull = (size: "small" | "large") => {
-    if (size === "small") return state.smallFerry.length >= MAX_SMALL;
-    return state.largeFerry.length >= MAX_LARGE;
+const RandomAssign: React.FC<AssignProps> = ({ state, dispatch, queue, setQueue }) => {
+  // Custom hook for handling add vehicle logic and managing error state
+  const { handleAddVehicle, errorMessage } = useVehicleAssign({ state, dispatch, queue, setQueue });
+  const handleRandomAdd = () => {
+    const vehicle = getRandomVehicle();
+    handleAddVehicle(vehicle);
   };
-
-  const handleAddVehicle = () => {
-    const vehicle = generateRandomVehicle();
-
-    if (isFerryFull(vehicle.size)) {
-      setQueue((prev) => [...prev, vehicle]);
-      setErrorMessage("The ferry is full and the vehicle has joined the queue !");
-      return;
-    }
-
-    setErrorMessage(null);
-    dispatch({ type: "ADD_VEHICLE", payload: vehicle });
-  };
-
   return (
     <div className="space-y-4">
-      <button
-        className="btn btn-accent w-full"
-        onClick={handleAddVehicle}
-      >
+      <button className="btn btn-accent w-full" onClick={handleRandomAdd}>
         Randomly add vehicles
       </button>
       {errorMessage && <div className="alert alert-error mt-2">{errorMessage}</div>}

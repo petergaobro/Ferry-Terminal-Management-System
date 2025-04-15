@@ -1,3 +1,8 @@
+import carImg from "../assets/car.png";
+import vanImg from "../assets/van.png";
+import truckImg from "../assets/truck.png";
+import busImg from "../assets/bus.png";
+
 export type VehicleSize = "small" | "large";
 export type VehicleType = "car" | "van" | "truck" | "bus";
 
@@ -6,23 +11,9 @@ export type Vehicle = {
   type: VehicleType;
 };
 
-// Define vehicle types and their corresponding dimensions (avoid duplication of logic)
-const vehicleSizeMap: Record<VehicleType, VehicleSize> = {
-  car: "small",
-  van: "small",
-  truck: "large",
-  bus: "large",
-};
+export const VehicleTypes: VehicleType[] = ["car", "van", "truck", "bus"];
 
-const vehicleTypes: VehicleType[] = ["car", "van", "truck", "bus"];
-
-export const getRandomVehicle = (): Vehicle => {
-  const randomType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
-  return {
-    type: randomType,
-    size: vehicleSizeMap[randomType],
-  };
-};
+export const VehicleImages: Record<VehicleType, string> = { car: carImg, van: vanImg, truck: truckImg, bus: busImg };
 
 
 // export type VehicleSize = "small" | "large";

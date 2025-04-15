@@ -8,3 +8,23 @@ export const generateRandomVehicle = (): Vehicle => {
 
   return { type: randomType, size };
 };
+
+
+
+// Define vehicle types and their corresponding dimensions (avoid duplication of logic)
+const vehicleSizeMap: Record<VehicleType, VehicleSize> = {
+  car: "small",
+  van: "small",
+  truck: "large",
+  bus: "large",
+};
+
+const vehicleTypes: VehicleType[] = ["car", "van", "truck", "bus"];
+
+export const getRandomVehicle = (): Vehicle => {
+  const randomType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+  return {
+    type: randomType,
+    size: vehicleSizeMap[randomType],
+  };
+};

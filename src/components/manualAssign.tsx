@@ -1,45 +1,24 @@
 import React, { useMemo, useState } from "react";
-import { Vehicle, VehicleType, VehicleSize } from "../types/Vehicle";
-import { State, Action } from "../hooks/useFerryTerminal";
+import { Vehicle, VehicleType, VehicleTypes, VehicleSize } from "../types/Vehicle";
+import { AssignProps } from "../types/Assign";
+import { useVehicleAssign } from "../hooks/useVehicleAssign";
 
-interface Props {
-  // Application state containing ferry data
-  state: State;
-  // Dispatch function for managing ferry actions
-  dispatch: React.Dispatch<Action>;
-  queue: Vehicle[];
-  setQueue: React.Dispatch<React.SetStateAction<Vehicle[]>>;
-}
-
-const vehicleTypes: VehicleType[] = ["car", "van", "truck", "bus"];
-const MAX_SMALL = 8;
-const MAX_LARGE = 6;
-
-const ManualAssign: React.FC<Props> = ({ state, dispatch, setQueue }) => {
+// ManualAssign component allows users to manually select and add a vehicle
+const ManualAssign: React.FC<AssignProps> = ({ state, dispatch, queue, setQueue }) => {
+  // Track selected vehicle type from dropdown
   const [vehicleType, setVehicleType] = useState<VehicleType>("car");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Determine vehicle size based on type
   const vehicleSize = useMemo<VehicleSize>(
     () => (vehicleType === "car" || vehicleType === "van" ? "small" : "large"),
     [vehicleType],
   );
-
-  const isFerryFull = (size: VehicleSize) => {
-    if (size === "small") return state.smallFerry.length >= MAX_SMALL;
-    return state.largeFerry.length >= MAX_LARGE;
-  };
-
-  const handleAddVehicle = () => {
+  // Custom hook for handling add vehicle logic and managing error state
+  const { handleAddVehicle, errorMessage } = useVehicleAssign({ state, dispatch, queue, setQueue });
+  // Handle manual add button click
+  const handleManualAdd = () => {
     const vehicle: Vehicle = { type: vehicleType, size: vehicleSize };
-
-    if (isFerryFull(vehicle.size)) {
-      setQueue((prev) => [...prev, vehicle]);
-      setErrorMessage("The ferry is full and the vehicle has joined the queue!");
-      return;
-    }
-
-    setErrorMessage(null);
-    dispatch({ type: "ADD_VEHICLE", payload: vehicle });
+    handleAddVehicle(vehicle);
   };
 
   return (
@@ -49,14 +28,16 @@ const ManualAssign: React.FC<Props> = ({ state, dispatch, setQueue }) => {
         onChange={(e) => setVehicleType(e.target.value as VehicleType)}
         className="select select-bordered w-full text-black bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm"
       >
-        {vehicleTypes.map((type) => (
+        {VehicleTypes.map((type) => (
           <option key={type} value={type}>
             {type === "car" ? "Car" : type === "van" ? "Van" : type === "truck" ? "Truck" : "Bus"}
           </option>
         ))}
       </select>
 
-      <button className="btn btn-primary w-full" onClick={handleAddVehicle}>Add New Vehicles</button>
+      <button className="btn btn-primary w-full" onClick={handleManualAdd}>
+        Add New Vehicles
+      </button>
 
       {errorMessage && (
         <div className="alert alert-error mt-2 text-black bg-red-100 border border-red-400">{errorMessage}</div>

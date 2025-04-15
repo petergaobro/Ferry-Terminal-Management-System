@@ -1,6 +1,6 @@
 import React from "react";
 import { Vehicle } from "../types/Vehicle";
-import { vehicleImages } from "../constants/vehicleMap";
+import { VehicleImages } from "../types/Vehicle";
 import { Action } from "../hooks/useFerryTerminal";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 const VehicleCard: React.FC<Props> = ({ vehicle, ferryType, index, dispatch }) => (
   <div className="relative group">
     <img
-      src={vehicleImages[vehicle.type]}
+      src={VehicleImages[vehicle.type]}
       alt={vehicle.type}
       className="w-16 h-16 object-contain transition transform hover:scale-110"
     />
