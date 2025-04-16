@@ -18,6 +18,7 @@ const VehicleCard: React.FC<Props> = ({ vehicle, ferryType, index, dispatch }) =
       alt={vehicle.type}
       className="w-16 h-16 object-contain transition transform hover:scale-110"
     />
+    <p>{vehicle.type}</p>
     <button
       onClick={() => dispatch({ type: "REMOVE_VEHICLE", payload: { ferryType, index, carType: vehicle.type } })}
       className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 text-xs hidden group-hover:block cursor-pointer"

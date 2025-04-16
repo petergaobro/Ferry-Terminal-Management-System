@@ -3,6 +3,7 @@ import { useFerryTerminal } from "../hooks/useFerryTerminal";
 import AddVehicle from "./addVehicle";
 import FerryList from "./ferryList";
 import RevenuePanel from "./revenuePanel";
+import QueueList from "./queueList";
 import { Vehicle } from "../types/Vehicle";
 
 const FerryTerminal: React.FC = () => {
@@ -30,6 +31,7 @@ const FerryTerminal: React.FC = () => {
       <AddVehicle state={state} dispatch={dispatch} queue={queue} setQueue={setQueue} />
       <FerryList state={state} dispatch={dispatch} />
       <RevenuePanel state={state} />
+      <QueueList queue={queue} />
     </div>
   );
 };

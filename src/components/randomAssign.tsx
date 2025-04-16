@@ -16,7 +16,9 @@ const RandomAssign: React.FC<AssignProps> = ({ state, dispatch, queue, setQueue 
       <button className="btn btn-accent w-full" onClick={handleRandomAdd}>
         Randomly add vehicles
       </button>
-      {errorMessage && <div className="alert alert-error mt-2">{errorMessage}</div>}
+      {errorMessage && (
+        <div className="alert alert-error mt-2 text-black bg-red-100 border border-red-400">{errorMessage}</div>
+      )}
     </div>
   );
 };
